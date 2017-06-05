@@ -111,3 +111,4 @@ let g:neocomplcache_dictionary_filetype_lists = {
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
+inoremap @gs { get; set; }
