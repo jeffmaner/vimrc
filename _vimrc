@@ -48,6 +48,7 @@ set background=light
 colorscheme solarized
 
 set cc=80
+hi colorcolumn ctermbg=lightred guibg=lightred
 
 "set guifont=lucida_console
 set guifont=apl385_unicode:h10
