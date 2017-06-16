@@ -31,7 +31,7 @@ function! MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-"" }}}
+"" Example vimrc Content }}}
 
 "" Swap, Backup, and Undo Files {{{
 " Set location for swap files.
@@ -45,7 +45,7 @@ set noswapfile
 set nobackup
 
 set noundofile
-"" }}}
+"" Swap, Backup, and Undo Files }}}
 
 "" General Settings {{{
 " colorscheme darkblue
@@ -64,7 +64,7 @@ set shiftwidth=2
 set expandtab
 set number
 set foldlevelstart=0
-"" }}}
+"" General Settings }}}
 
 " Start in Maximized window.
 autocmd GUIEnter * simalt ~x
@@ -81,7 +81,7 @@ map <C-J> :wincmd j<CR>
 map <C-K> :wincmd k<CR>
 map <C-L> :wincmd l<CR>
 map <C-H> :wincmd h<CR>
-"" }}}
+"" Window Commands }}}
 
 set go-=T
 
@@ -98,7 +98,7 @@ inoremap (  ()<Left>
 inoremap () ()
 inoremap [  []<Left>
 inoremap [] []
-"" }}}
+"" Bracket and Quote Auto-close }}}
 
 nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<CR>
 nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<CR>
@@ -119,7 +119,7 @@ vnoremap <leader>[ c[]<Esc>Pl
 "" Surround with curly brackets.
 nnoremap <leader>{ viw<Esc>a}<Esc>bi{<Esc>lel
 vnoremap <leader>{ c{}<Esc>Pl
-"" }}}
+"" Bracket and Quote Manipulation }}}
 
 "" Move line down.
 nnoremap - ddp
@@ -128,15 +128,15 @@ nnoremap - ddp
 "" lines.
 nnoremap _ ddkP
 
-"" Date and Time mappings {{{
+"" Date and Time Mappings {{{
 inoremap @dts <c-r>=strftime("%Y-%m-%d %H:%M")<CR>
 inoremap @ds  <c-r>=strftime("%Y-%m-%d")<CR>
 inoremap @ts  <c-r>=strftime("%H:%M")<CR>
-"" }}}
+"" Date and Time Mappings }}}
 
 "" TODO: Replace this mapping with an abbreviation getset?
 inoremap @gs { get; set; }
-"" }}}
+"" Mappings }}}
 
 call pathogen#infect()
 
@@ -156,11 +156,11 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ }
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"" }}}
+"" neocomplcache }}}
 
 " Vimscript File Settings {{{
 augroup filetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup end
-" }}}
+" Vimscript File Settings }}}
