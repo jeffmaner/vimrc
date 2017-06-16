@@ -1,3 +1,6 @@
+"" http://learnvimscriptthehardway.stevelosh.com/ was an excellent source.
+
+"" Example vimrc Content {{{
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -28,7 +31,9 @@ function! MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+"" }}}
 
+"" Swap, Backup, and Undo Files {{{
 " Set location for swap files.
 " I don't want these showing up on remote servers.
 " set dir=$HOME\\Temp
@@ -40,38 +45,50 @@ set noswapfile
 set nobackup
 
 set noundofile
+"" }}}
 
+"" General Settings {{{
 " colorscheme darkblue
 " colorscheme vc " 2008-04-30
 syntax enable
 set background=light
 colorscheme solarized
 
-set cc=80
-hi colorcolumn ctermbg=lightred guibg=lightred
+set cc=80 "" colorcolumn
+highlight colorcolumn ctermbg=lightred guibg=lightred
 
 "set guifont=lucida_console
 set guifont=apl385_unicode:h10
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set nu
+set number
+set foldlevelstart=0
+"" }}}
 
 " Start in Maximized window.
-au GUIEnter * simalt ~x
+autocmd GUIEnter * simalt ~x
 
 " Cross-hairs for the cursor!
 set cursorline cursorcolumn
-au WinLeave * set nocursorline nocursorcolumn
-au WinEnter * set cursorline cursorcolumn
+augroup crosshairs
+  autocmd WinLeave * set nocursorline nocursorcolumn
+  autocmd WinEnter * set cursorline cursorcolumn
+augroup end
 
+"" Window Commands {{{
 map <C-J> :wincmd j<CR>
 map <C-K> :wincmd k<CR>
 map <C-L> :wincmd l<CR>
 map <C-H> :wincmd h<CR>
+"" }}}
 
 set go-=T
 
+"" Mappings {{{
+let mapleader = " "
+
+"" Bracket and Quote Auto-close {{{
 inoremap {  {}<Left>
 inoremap {<CR> {<CR>}<Esc>O
 inoremap {} {}
@@ -81,21 +98,49 @@ inoremap (  ()<Left>
 inoremap () ()
 inoremap [  []<Left>
 inoremap [] []
+"" }}}
 
-let mapleader = " "
-nnoremap <leader>ev :new    $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<CR>
+nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<CR>
 
+"" Use no magic.
+nnoremap <leader>/ /\v
+
+"" Bracket and Quote Manipulation {{{
 "" Surround with quotes.
 nnoremap <leader>" viw<Esc>a"<Esc>bi"<Esc>lel
+vnoremap <leader>" c""<Esc>Pl
+"" Surround with parentheses.
+nnoremap <leader>( viw<Esc>a)<Esc>bi(<Esc>lel
+vnoremap <leader>( c()<Esc>Pl
+"" Surround with square brackets.
+nnoremap <leader>[ viw<Esc>a]<Esc>bi[<Esc>lel
+vnoremap <leader>[ c[]<Esc>Pl
+"" Surround with curly brackets.
+nnoremap <leader>{ viw<Esc>a}<Esc>bi{<Esc>lel
+vnoremap <leader>{ c{}<Esc>Pl
+"" }}}
 
-"" inoremap <F3> <CR>=strftime("%Y-%m-%d %H:%M")
+"" Move line down.
+nnoremap - ddp
+"" Move line up. TODO: Using this on the last line in the file will move up
+"" two lines. And using this on the first line in the file will simply lose
+"" lines.
+nnoremap _ ddkP
+
+"" Date and Time mappings {{{
 inoremap @dts <c-r>=strftime("%Y-%m-%d %H:%M")<CR>
 inoremap @ds  <c-r>=strftime("%Y-%m-%d")<CR>
 inoremap @ts  <c-r>=strftime("%H:%M")<CR>
+"" }}}
+
+"" TODO: Replace this mapping with an abbreviation getset?
+inoremap @gs { get; set; }
+"" }}}
 
 call pathogen#infect()
 
+"" neocomplcache {{{
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
@@ -111,5 +156,11 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ }
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"" }}}
 
-inoremap @gs { get; set; }
+" Vimscript File Settings {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup end
+" }}}
