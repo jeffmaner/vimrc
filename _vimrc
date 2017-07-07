@@ -104,7 +104,7 @@ nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<CR>
 nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<CR>
 
 "" Use no magic.
-nnoremap <leader>/ /\v
+nnoremap / /\v
 
 "" Bracket and Quote Manipulation {{{
 "" Surround with quotes.
