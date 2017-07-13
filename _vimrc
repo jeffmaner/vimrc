@@ -121,6 +121,11 @@ nnoremap <leader>{ viw<Esc>a}<Esc>bi{<Esc>lel
 vnoremap <leader>{ c{}<Esc>Pl
 "" Bracket and Quote Manipulation }}}
 
+"" Split Line on Commas.
+nnoremap <leader>sc :s/\s*,\s*/\r/g<cr>
+"" Split Line on Semicolons.
+nnoremap <leader>sc :s/\s*;\s*/\r/g<cr>
+
 "" Move line down.
 nnoremap - ddp
 "" Move line up. TODO: Using this on the last line in the file will move up
