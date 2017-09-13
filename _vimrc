@@ -103,6 +103,7 @@ inoremap [] []
 nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<cr>
 nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<cr>
 nnoremap <leader>tw :%s/\v\s+$//g<cr>
+nnoremap <leader>dt :%s/\t/  //g<cr>
 
 "" Use no magic.
 nnoremap / /\v
