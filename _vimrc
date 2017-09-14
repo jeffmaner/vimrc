@@ -150,7 +150,7 @@ inoremap @gs { get; set; }
 
 "" Macros {{{
 "" My SQL clean-up:
-let @s = ':call DeYellSQL()'
+let @s = ':%call DeYellSQL()'
 "" Macros }}}
 
 "" Functions {{{
