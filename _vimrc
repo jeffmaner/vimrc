@@ -212,6 +212,13 @@ function! DeYellSQL() range
     let currentLine = substitute(currentLine, '\c\<EXEC\>'    , 'exec'     , 'g')
     let currentLine = substitute(currentLine, '\c\<DATEDIFF\>', 'datediff' , 'g')
     let currentLine = substitute(currentLine, '\c\<NOLOCK\>'  , 'nolock'   , 'g')
+    let currentLine = substitute(currentLine, '\c\<EXEC\>'    , 'exec'     , 'g')
+    let currentLine = substitute(currentLine, '\c\<CASE\>'    , 'case'     , 'g')
+    let currentLine = substitute(currentLine, '\c\<WHEN\>'    , 'when'     , 'g')
+    let currentLine = substitute(currentLine, '\c\<THEN\>'    , 'then'     , 'g')
+    let currentLine = substitute(currentLine, '\c\<ELSE\>'    , 'else'     , 'g')
+    let currentLine = substitute(currentLine, '\c\<DATETIME\>', 'datetime' , 'g')
+    let currentLine = substitute(currentLine, '\c\<VARCHAR\>' , 'varchar'  , 'g')
 
     "" Ensure equal signs are surrounded by space.
     let currentLine = substitute(currentLine, '\(\S\)=\(\S\)', '\1 = \2', 'g')
