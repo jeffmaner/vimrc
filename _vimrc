@@ -236,6 +236,15 @@ function! DeYellSQL() range
     let currentLine = substitute(currentLine, '\c\<ROWCOUNT\>', 'rowcount'    , 'g')
     let currentLine = substitute(currentLine, '\cSUBSTRING'   , 'substring'   , 'g')
     let currentLine = substitute(currentLine, '\c\<LEN\>'     , 'len'         , 'g')
+    let currentLine = substitute(currentLine, '\c\<USE\>'     , 'use'         , 'g')
+    let currentLine = substitute(currentLine, '\c\<GO\>'      , 'go'          , 'g')
+    let currentLine = substitute(currentLine, '\c\<ALTER\>'   , 'alter'       , 'g')
+    let currentLine = substitute(currentLine, '\cPROCEDURE'   , 'procedure'   , 'g')
+    let currentLine = substitute(currentLine, '\cTRANSACTION' , 'transaction' , 'g')
+    let currentLine = substitute(currentLine, '\cCOMMIT'      , 'commit'      , 'g')
+    let currentLine = substitute(currentLine, '\c\<MAX\>'     , 'max'         , 'g')
+    let currentLine = substitute(currentLine, '\c\<MIN\>'     , 'min'         , 'g')
+    let currentLine = substitute(currentLine, '\c\<NOCOUNT\>' , 'nocount'     , 'g')
 
     "" Ensure equal signs are surrounded by space.
     let currentLine = substitute(currentLine, '\(\S\)=\(\S\)', '\1 = \2', 'g')
