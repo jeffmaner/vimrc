@@ -76,6 +76,17 @@ augroup crosshairs
   autocmd WinEnter * set cursorline cursorcolumn
 augroup end
 
+"" Trailing Whitespace Highlighting {{{
+"" https://superuser.com/questions/921920/display-trailing-spaces-in-vim
+"" Comments on answer are helpful, but I'm not sure how to implement them.
+highlight ExtraWhitespace ctermbg=red guibg=red
+let m = matchadd("ExtraWhitespace", "/\s\+$/")
+autocmd BufWinEnter * let m = matchadd("ExtraWhitespace", "/\s\+$/")
+autocmd InsertEnter * let m = matchadd("ExtraWhitespace", "/\s\+\%#\@<!$/")
+autocmd InsertLeave * let m = matchadd("ExtraWhitespace", "/\s\+$/")
+"" autocmd BufWinLeave * call matchdelete(m) "" Raises errors.
+"" Trailing Whitespace Highlighting }}}
+
 "" Window Commands {{{
 map <C-J> :wincmd j<CR>
 map <C-K> :wincmd k<CR>
