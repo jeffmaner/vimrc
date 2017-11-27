@@ -111,10 +111,10 @@ inoremap [  []<Left>
 inoremap [] []
 "" Bracket and Quote Auto-close }}}
 
+"" Edit .vimrc.
 nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<cr>
+"" Source .vimrc.
 nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<cr>
-nnoremap <leader>tw :%s/\v\s+$//g<cr>
-nnoremap <leader>dt :%s/\t/  //g<cr>
 
 "" Use no magic.
 nnoremap / /\v
@@ -141,6 +141,12 @@ vnoremap <leader>{ c{}<Esc>Pl
 nnoremap <leader>sc :s/\s*,\s*/\r/g<cr>
 "" Split Line on Semicolons.
 nnoremap <leader>ss :s/\s*;\s*/\r/g<cr>
+"" Trim trailing whitespace.
+nnoremap <leader>tw :%s/\v\s+$//g<cr>
+"" Detab (convert tabs into two spaces apiece).
+nnoremap <leader>dt :%s/\t/  //g<cr>
+"" Clean stack trace.
+nnoremap <leader>cst :%s/\sat\>/\rat/g<cr>
 
 "" Move line down.
 nnoremap - ddp
