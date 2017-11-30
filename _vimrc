@@ -147,6 +147,8 @@ nnoremap <leader>tw :%s/\v\s+$//g<cr>
 nnoremap <leader>dt :%s/\t/  //g<cr>
 "" Clean stack trace.
 nnoremap <leader>cst :%s/\sat\>/\rat/g<cr>
+"" De-yell SQL.
+nnoremap <leader>dys :%call DeYellSQL()<cr>
 
 "" Move line down.
 nnoremap - ddp
