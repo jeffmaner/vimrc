@@ -116,6 +116,8 @@ nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<cr>
 "" Source .vimrc.
 nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<cr>
 
+nnoremap :Q :q!
+
 "" Use no magic.
 nnoremap / /\v
 
