@@ -84,7 +84,7 @@ let m = matchadd("ExtraWhitespace", "/\s\+$/")
 autocmd BufWinEnter * let m = matchadd("ExtraWhitespace", "/\s\+$/")
 autocmd InsertEnter * let m = matchadd("ExtraWhitespace", "/\s\+\%#\@<!$/")
 autocmd InsertLeave * let m = matchadd("ExtraWhitespace", "/\s\+$/")
-"" autocmd BufWinLeave * call matchdelete(m) "" Raises errors.
+""autocmd BufWinLeave * call matchdelete(m) "" Raises errors.
 "" Trailing Whitespace Highlighting }}}
 
 "" Window Commands {{{
@@ -111,10 +111,8 @@ inoremap [  []<Left>
 inoremap [] []
 "" Bracket and Quote Auto-close }}}
 
-"" Edit .vimrc.
-nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<cr>
-"" Source .vimrc.
-nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<cr>
+nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<CR>
+nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<CR>
 
 nnoremap :Q :q!
 
@@ -146,7 +144,7 @@ nnoremap <leader>ss :s/\s*;\s*/\r/g<cr>
 "" Trim trailing whitespace.
 nnoremap <leader>tw :%s/\v\s+$//g<cr>
 "" Detab (convert tabs into two spaces apiece).
-nnoremap <leader>dt :%s/\t/  //g<cr>
+nnoremap <leader>dt :%s/\t/  /g<cr>
 "" Clean stack trace.
 nnoremap <leader>cst :%s/\sat\>/\rat/g<cr>
 "" De-yell SQL.
@@ -171,117 +169,54 @@ inoremap @gs { get; set; }
 
 "" Macros {{{
 "" My SQL clean-up:
-let @s = ':%call DeYellSQL()'
+let @s = ':%call DeYellSQL()'
 "" Macros }}}
 
 "" Functions {{{
 function! DeYellSQL() range
-  for lineNumber in range(a:firstline, a:lastline)
-    let currentLine = getline(lineNumber)
+  let keywords  = []
+  let keywords += [ 'abs', 'all', 'alter', 'and', 'ansi_nulls', 'as', 'asc', ]
+  let keywords += [ 'begin', 'between', 'by', ]
+  let keywords += [ 'case', 'cast', 'catch', 'close', 'commit', 'convert', 'count', 'create', 'cursor', ]
+  let keywords += [ 'dateadd', 'datediff', 'datetime', 'deallocate', 'decimal', 'declare', 'delete', 'desc', 'distinct', ]
+  let keywords += [ 'else', 'end', 'error_message', 'error_severity', 'error_state', 'exec', 'exists', ]
+  let keywords += [ 'fetch', 'fetch_status', 'for', 'from', ]
+  let keywords += [ 'getdate', 'go', 'group', ]
+  let keywords += [ 'having', ]
+  let keywords += [ 'if', 'in', 'inner', 'insert', 'int', 'into', 'is', 'isnull', 'isnumeric', ]
+  let keywords += [ 'join', ]
+  let keywords += [ 'left', 'len', 'local', 'ltrim', ]
+  let keywords += [ 'max', 'min', 'money', ]
+  let keywords += [ 'next', 'nocount', 'nolock', 'not', 'null', 'numeric', 'nvarchar', ]
+  let keywords += [ 'on', 'open', 'or', 'order', 'outer', 'over', ]
+  let keywords += [ 'partition', 'procedure', ]
+  let keywords += [ 'quoted_identifier' ]
+  let keywords += [ 'raiserror', 'replace', 'right', 'rollback', 'round', 'row_number', 'rowcount', 'rtrim', ]
+  let keywords += [ 'select', 'set', 'substring', 'sum', ]
+  let keywords += [ 'table', 'then', 'top', 'tran', 'transaction', 'truncate', 'try', ]
+  let keywords += [ 'union', 'update', 'use', ]
+  let keywords += [ 'values', 'varchar', 'when', ]
+  let keywords += [ 'where', 'while', 'with' ] 
 
-    let currentLine = substitute(currentLine, '\c<\ASC\>'     , 'asc'         , 'g')
-    let currentLine = substitute(currentLine, '\c<\DESC\>'    , 'desc'        , 'g')
-    let currentLine = substitute(currentLine, '\cORDER'       , 'order'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<BY\>'      , 'by'          , 'g')
-    let currentLine = substitute(currentLine, '\cCONVERT'     , 'convert'     , 'g')
-    let currentLine = substitute(currentLine, '\cDELETE'      , 'delete'      , 'g')
-    let currentLine = substitute(currentLine, '\cDECLARE'     , 'declare'     , 'g')
-    let currentLine = substitute(currentLine, '\cDISTINCT'    , 'distinct'    , 'g')
-    let currentLine = substitute(currentLine, '\c\<TABLE\>'   , 'table'       , 'g')
-    let currentLine = substitute(currentLine, '\cINSERT'      , 'insert'      , 'g')
-    let currentLine = substitute(currentLine, '\cINTO'        , 'into'        , 'g')
-    let currentLine = substitute(currentLine, '\cSELECT'      , 'select'      , 'g')
-    let currentLine = substitute(currentLine, '\cFROM'        , 'from'        , 'g')
-    let currentLine = substitute(currentLine, '\cUNION'       , 'union'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<ALL\>'     , 'all'         , 'g')
-    let currentLine = substitute(currentLine, '\cWHERE'       , 'where'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<AND\>'     , 'and'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<OR\>'      , 'or'          , 'g')
-    let currentLine = substitute(currentLine, '\c\<IN\>'      , 'in'          , 'g')
-    let currentLine = substitute(currentLine, '\c\<LEFT\>'    , 'left'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<RIGHT\>'   , 'right'       , 'g')
-    let currentLine = substitute(currentLine, '\cINNER'       , ''            , 'g')
-    let currentLine = substitute(currentLine, '\cOUTER'       , 'outer'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<JOIN\>'    , 'join'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<ON\>'      , 'on'          , 'g')
-    let currentLine = substitute(currentLine, '\c\<IS\>'      , 'is'          , 'g')
-    let currentLine = substitute(currentLine, '\c\<NOT\>'     , 'not'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<NULL\>'    , 'null'        , 'g')
-    let currentLine = substitute(currentLine, '\cISNULL'      , 'isnull'      , 'g')
-    let currentLine = substitute(currentLine, '\cEXISTS'      , 'exists'      , 'g')
-    let currentLine = substitute(currentLine, '\c\<AS\>'      , 'as'          , 'g')
-    let currentLine = substitute(currentLine, '\c\<INT\>'     , 'int'         , 'g')
-    let currentLine = substitute(currentLine, '\cDECIMAL'     , 'decimal'     , 'g')
-    let currentLine = substitute(currentLine, '\c\<CAST\>'    , 'cast'        , 'g')
-    let currentLine = substitute(currentLine, '\cGETDATE'     , 'getdate'     , 'g')
-    let currentLine = substitute(currentLine, '\cDATEADD'     , 'dateadd'     , 'g')
-    let currentLine = substitute(currentLine, '\cLTRIM'       , 'ltrim'       , 'g')
-    let currentLine = substitute(currentLine, '\cRTRIM'       , 'rtrim'       , 'g')
-    let currentLine = substitute(currentLine, '\cUPDATE'      , 'update'      , 'g')
-    let currentLine = substitute(currentLine, '\c\<SET\>'     , 'set'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<TOP\>'     , 'top'         , 'g')
-    let currentLine = substitute(currentLine, '\cISNUMERIC'   , 'isnumeric'   , 'g')
-    let currentLine = substitute(currentLine, '\cBETWEEN'     , 'between'     , 'g')
-    let currentLine = substitute(currentLine, '\c\<COUNT\>'   , 'count'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<GROUP\>'   , 'group'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<ABS\>'     , 'abs'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<SUM\>'     , 'sum'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<ROUND\>'   , 'round'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<BEGIN\>'   , 'begin'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<END\>'     , 'end'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<WITH\>'    , 'with'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<EXEC\>'    , 'exec'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<DATEDIFF\>', 'datediff'    , 'g')
-    let currentLine = substitute(currentLine, '\c\<NOLOCK\>'  , 'nolock'      , 'g')
-    let currentLine = substitute(currentLine, '\c\<EXEC\>'    , 'exec'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<CASE\>'    , 'case'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<WHEN\>'    , 'when'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<THEN\>'    , 'then'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<ELSE\>'    , 'else'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<DATETIME\>', 'datetime'    , 'g')
-    let currentLine = substitute(currentLine, '\c\<VARCHAR\>' , 'varchar'     , 'g')
-    let currentLine = substitute(currentLine, '\c\<HAVING\>'  , 'having'      , 'g')
-    let currentLine = substitute(currentLine, '\c\<MONEY\>'   , 'money'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<CURSOR\>'  , 'cursor'      , 'g')
-    let currentLine = substitute(currentLine, '\c\<FOR\>'     , 'for'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<OPEN\>'    , 'open'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<FETCH\>'   , 'fetch'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<NEXT\>'    , 'next'        , 'g')
-    let currentLine = substitute(currentLine, '\c\<WHILE\>'   , 'while'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<VALUES\>'  , 'values'      , 'g')
-    let currentLine = substitute(currentLine, '\c\<CLOSE\>'   , 'close'       , 'g')
-    let currentLine = substitute(currentLine, '\cDEALLOCATE'  , 'deallocate'  , 'g')
-    let currentLine = substitute(currentLine, '\cFETCH_STATUS', 'fetch_status', 'g')
-    let currentLine = substitute(currentLine, '\c\<IF\>'      , 'if'          , 'g')
-    let currentLine = substitute(currentLine, '\c\<LOCAL\>'   , 'local'       , 'g')
-    let currentLine = substitute(currentLine, '\c\<ROWCOUNT\>', 'rowcount'    , 'g')
-    let currentLine = substitute(currentLine, '\cSUBSTRING'   , 'substring'   , 'g')
-    let currentLine = substitute(currentLine, '\c\<LEN\>'     , 'len'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<USE\>'     , 'use'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<GO\>'      , 'go'          , 'g')
-    let currentLine = substitute(currentLine, '\c\<ALTER\>'   , 'alter'       , 'g')
-    let currentLine = substitute(currentLine, '\cPROCEDURE'   , 'procedure'   , 'g')
-    let currentLine = substitute(currentLine, '\cTRANSACTION' , 'transaction' , 'g')
-    let currentLine = substitute(currentLine, '\cCOMMIT'      , 'commit'      , 'g')
-    let currentLine = substitute(currentLine, '\c\<MAX\>'     , 'max'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<MIN\>'     , 'min'         , 'g')
-    let currentLine = substitute(currentLine, '\c\<NOCOUNT\>' , 'nocount'     , 'g')
-
-    "" Ensure equal signs are surrounded by space.
-    let currentLine = substitute(currentLine, '\(\S\)=\(\S\)', '\1 = \2', 'g')
-    "" Ensure commas are followed by space.
-    let currentLine = substitute(currentLine, ',\(\S\)', ', \1', 'g')
-    "" Get rid of superfluous identifier brackets, then add them back where
-    "" actually necessary.
-    ""let currentLine = substitute(currentLine, '\[\|\]', ,'', 'g')
-    "" Doesn't work from here. Don't know why.
-
-    call setline(lineNumber, currentLine)
+  for w in keywords
+    let pattern = '\c\<' . w . '\>'
+    execute "%substitute/" . pattern . "/". w . "/eg"
   endfor
 
-  if a:lastline > a:firstline
-    echo "DeYelled SQL" (a:lastline - a:firstline + 1) "lines."
-  endif
+  "" TODO: None of the following work. I don't know why.
+  "" Replace <> with != becuase I like != better than <>.
+  execute "%substitute/<>/!=/eg"
+  "" Ensure equal signs are surrounded by space.
+  execute "%substitute/\([!<>=\s]\)=\([=\s]\)/\1 = \2/eg"
+  "" Ensure commas are followed by space.
+  execute "%substitute/,\(\S\)/, \1/eg"
+  "" Get rid of superfluous identifier brackets, then add them back where
+  "" actually necessary.
+  execute "normal! :%substitute/\[\|\]//eg"
+  "" Add a space before comment text.
+  execute "normal! :%substitute/(--)(\S)/\1 \2/eg"
+
+  echo "DeYelled SQL."
 endfunction
 
 "" Inspired by Damian Conway at https://www.ibm.com/developerworks/library/l-vim-script-2/index.html
