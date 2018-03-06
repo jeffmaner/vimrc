@@ -114,8 +114,6 @@ inoremap [] []
 nnoremap <leader>ev :new    $HOME/Documents/GitHub/vimrc/_vimrc<CR>
 nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<CR>
 
-nnoremap :Q :q!
-
 "" Use no magic.
 nnoremap / /\v
 
