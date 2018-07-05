@@ -117,24 +117,6 @@ nnoremap <leader>sv :source $HOME/Documents/GitHub/vimrc/_vimrc<CR>
 "" Use no magic.
 nnoremap / /\v
 
-"" Bracket and Quote Manipulation {{{
-"" Surround with single quotes.
-nnoremap <leader>' viw<Esc>a'<Esc>bi'<Esc>lel
-vnoremap <leader>' c''<Esc>Pl
-"" Surround with double quotes.
-nnoremap <leader>" viw<Esc>a"<Esc>bi"<Esc>lel
-vnoremap <leader>" c""<Esc>Pl
-"" Surround with parentheses.
-nnoremap <leader>( viw<Esc>a)<Esc>bi(<Esc>lel
-vnoremap <leader>( c()<Esc>Pl
-"" Surround with square brackets.
-nnoremap <leader>[ viw<Esc>a]<Esc>bi[<Esc>lel
-vnoremap <leader>[ c[]<Esc>Pl
-"" Surround with curly brackets.
-nnoremap <leader>{ viw<Esc>a}<Esc>bi{<Esc>lel
-vnoremap <leader>{ c{}<Esc>Pl
-"" Bracket and Quote Manipulation }}}
-
 "" Split Line on Commas.
 nnoremap <leader>sc :s/\s*,\s*/\r/g<cr>
 "" Split Line on Semicolons.
@@ -152,27 +134,21 @@ nnoremap <c-n> :noh<cr>
 "" Easier writing.
 nnoremap <leader>w :w<cr>
 
-"" Move line down.
-nnoremap - ddp
-"" Move line up. TODO: Using this on the last line in the file will move up
-"" two lines. And using this on the first line in the file will simply lose
-"" lines.
-nnoremap _ ddkP
-
 "" Date and Time Mappings {{{
 inoremap @dts <c-r>=strftime("%Y-%m-%d %H:%M")<CR>
 inoremap @ds  <c-r>=strftime("%Y-%m-%d")<CR>
 inoremap @ts  <c-r>=strftime("%H:%M")<CR>
 "" Date and Time Mappings }}}
-
-"" TODO: Replace this mapping with an abbreviation getset?
-inoremap @gs { get; set; }
 "" Mappings }}}
 
 "" Macros {{{
 "" My SQL clean-up:
 let @s = ':%call DeYellSQL()'
 "" Macros }}}
+
+"" Abbreviations {{{
+iabbrev getset { get; set; }
+"" }}}
 
 "" Functions {{{
 function! DeYellSQL() range
