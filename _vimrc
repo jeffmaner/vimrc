@@ -147,6 +147,10 @@ nnoremap <leader>dt :%s/\t/  /g<cr>
 nnoremap <leader>cst :%s/\sat\>/\rat/g<cr>
 "" De-yell SQL.
 nnoremap <leader>dys :%call DeYellSQL()<cr>
+"" Clear highlighting.
+nnoremap <c-n> :noh<cr>
+"" Easier writing.
+nnoremap <leader>w :w<cr>
 
 "" Move line down.
 nnoremap - ddp
