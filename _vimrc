@@ -67,7 +67,11 @@ set foldlevelstart=0
 "" General Settings }}}
 
 " Start in Maximized window.
-autocmd GUIEnter * simalt ~x
+if has("win32") || has("win16")
+  autocmd GUIEnter * simalt ~x
+else
+  autocmd GUIEnter * call system('wmctrl -i -b add,maximized_vert,maximized_horz -r'.v:windowid)
+endif
 
 " Cross-hairs for the cursor!
 set cursorline cursorcolumn
