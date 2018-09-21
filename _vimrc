@@ -138,6 +138,9 @@ nnoremap <c-n> :noh<cr>
 "" Easier writing.
 nnoremap <leader>w :w<cr>
 
+"" Visual Search.
+vmap X y/<C-R>"<cr>
+
 "" Date and Time Mappings {{{
 inoremap @dts <c-r>=strftime("%Y-%m-%d %H:%M")<CR>
 inoremap @ds  <c-r>=strftime("%Y-%m-%d")<CR>
