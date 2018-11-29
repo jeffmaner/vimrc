@@ -64,6 +64,7 @@ set shiftwidth=2
 set expandtab
 set number
 set foldlevelstart=0
+set hlsearch
 "" General Settings }}}
 
 " Start in Maximized window.
@@ -150,7 +151,8 @@ inoremap @ts  <c-r>=strftime("%H:%M")<CR>
 
 "" Macros {{{
 "" My SQL clean-up:
-let @s = ':%call DeYellSQL()'
+let @s = ':%call DeYellSQL()
+'
 "" Macros }}}
 
 "" Abbreviations {{{
