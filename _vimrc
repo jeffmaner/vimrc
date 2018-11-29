@@ -65,6 +65,7 @@ set expandtab
 set number
 set foldlevelstart=0
 set hlsearch
+set incsearch
 "" General Settings }}}
 
 " Start in Maximized window.
