@@ -106,6 +106,8 @@ nnoremap <leader>dys :%call DeYellSQL()<cr>
 nnoremap <c-n> :noh<cr>
 "" Easier writing.
 nnoremap <leader>w :w<cr>
+"" Quicker :q!
+nnoremap ZQ :q!<cr>
 
 "" Visual Search.
 vmap X y/<C-R>"<cr>
